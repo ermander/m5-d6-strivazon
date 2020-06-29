@@ -149,14 +149,16 @@ router.post(
         const fileDest = path.join(
           __dirname,
           "../../images/",
-          req.params.id + path.extname(req.file.originalname)
+          req.params.id + path.extname(req.file.originalname) // 32i1hu23989asdasd.gif, 9123y91239921383.jpg
         )
         await fs.writeFile(fileDest, req.file.buffer)
         product.updateAt = new Date()
         product.imageUrl =
-          "/images/" + req.params.id + path.extname(req.file.originalname)
-        await writeProducts(filePath, products)
-        res.send(product)
+          "/images/" + req.params.id + path.extname(req.file.originalname) // imageUrl: /images/32i1hu23989asdasd.gif, /images/9123y91239921383.jpg
+        const position = products.indexOf(product)
+        products[position] = product
+        await writeProducts(products)
+        res.send("Image Uploaded!")
       } else {
         const error = new Error(`Product with id ${req.params.id} not found`)
         error.httpStatusCode = 404
