@@ -14,8 +14,9 @@ const {
 const server = express()
 const port = process.env.PORT
 
-server.use(express.json())
+// Middlewares 
 server.use(cors())
+server.use(express.json())
 
 //make the content of the images folder available
 server.use("/images", express.static(path.join(__dirname, "images")))

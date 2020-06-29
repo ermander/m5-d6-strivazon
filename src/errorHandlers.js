@@ -27,7 +27,7 @@ const forbiddenHandler = (err, req, res, next) => {
 
 // catch all
 const catchAllHandler = (err, req, res, next) => {
-  if (!res.headersSent) {
+  if (!res.headersSent) {  // !res.headersSent controlla se l'header è già stato inviato
     res.status(err.httpStatusCode || 500).send(err.message)
   }
 }
